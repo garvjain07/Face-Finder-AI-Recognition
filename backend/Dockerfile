@@ -1,12 +1,10 @@
 # ── Backend Dockerfile ──
-# Uses pre-built dlib to avoid 20+ min compilation
+# Uses dlib-bin (pre-compiled) so no heavy compilation needed
 FROM python:3.11-slim
 
-# Install system dependencies for dlib & OpenCV
+# Install minimal system dependencies for OpenCV headless
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential cmake libopenblas-dev liblapack-dev \
-    libx11-dev libgtk-3-dev libboost-all-dev \
-    libgl1-mesa-glx libglib2.0-0 \
+    libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -22,8 +20,9 @@ COPY . .
 # Create runtime directories
 RUN mkdir -p uploads thumbnails temp
 
-# Expose port
-EXPOSE 8001
+# Render sets PORT env var; default to 8001 locally
+ENV PORT=8001
+EXPOSE ${PORT}
 
-# Start server
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]
+# Start server — uses $PORT so Render can assign its own port
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT}
