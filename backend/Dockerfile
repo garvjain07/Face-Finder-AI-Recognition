@@ -11,8 +11,15 @@ WORKDIR /app
 
 # Install Python dependencies
 COPY requirements.txt .
+# Step 1: upgrade pip + install base requirements
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
+# Step 2: install pre-compiled dlib (no cmake/compilation needed)
+RUN pip install --no-cache-dir dlib-bin
+# Step 3: install face-recognition WITHOUT pulling source dlib as dependency
+RUN pip install --no-cache-dir face-recognition --no-deps
+# Step 4: install face_recognition_models (needed by face-recognition)
+RUN pip install --no-cache-dir face_recognition_models
 
 # Copy application code
 COPY . .
