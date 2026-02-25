@@ -5,9 +5,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import EventDetailPage from './pages/EventDetailPage';
 
@@ -33,34 +33,41 @@ function ProtectedRoute({ children }) {
 function AppRoutes() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/admin/login" element={<LoginPage />} />
-        <Route path="/admin/register" element={<RegisterPage />} />
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-1">
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/admin/login" element={<LoginPage />} />
 
-        {/* Protected Admin Routes */}
-        <Route
-          path="/admin/dashboard"
-          element={
-            <ProtectedRoute>
-              <DashboardPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/event/:eventId"
-          element={
-            <ProtectedRoute>
-              <EventDetailPage />
-            </ProtectedRoute>
-          }
-        />
+            {/* Registration is disabled */}
+            <Route path="/admin/register" element={<Navigate to="/admin/login" replace />} />
 
-        {/* Fallback */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+            {/* Protected Admin Routes */}
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedRoute>
+                  <DashboardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/event/:eventId"
+              element={
+                <ProtectedRoute>
+                  <EventDetailPage />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Fallback */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }

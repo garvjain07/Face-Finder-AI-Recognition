@@ -144,13 +144,13 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary-900/20 via-transparent to-accent-900/20" />
-        <div className="max-w-4xl mx-auto px-4 py-16 text-center relative">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4">
+        <div className="max-w-4xl mx-auto px-4 py-12 sm:py-16 text-center relative">
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold mb-4">
             <span className="gradient-text">Find Your Photos</span>
             <br />
-            <span className="text-slate-300">with AI Face Search</span>
+            <span className="text-slate-300 text-2xl sm:text-3xl lg:text-4xl">with AI Face Search</span>
           </h1>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-8">
+          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-8 px-4">
             Upload your selfie or scan your face — our AI will instantly find all photos
             where you appear from thousands of event photos.
           </p>

@@ -2,7 +2,7 @@
 // FaceFind Frontend - Admin Login Page
 // ============================================
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FiMail, FiLock, FiLogIn } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -90,12 +90,6 @@ export default function LoginPage() {
             )}
           </button>
         </form>
-
-        <div className="mt-6 text-center">
-          <Link to="/admin/register" className="text-sm text-primary-400 hover:text-primary-300">
-            Don't have an account? Register
-          </Link>
-        </div>
 
         <div className="mt-4 p-3 bg-slate-700/50 rounded-xl text-xs text-slate-400 text-center">
           Use admin credentials set during setup
